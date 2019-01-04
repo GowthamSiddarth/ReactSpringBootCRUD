@@ -43,4 +43,11 @@ public class GroupController {
         Group result = groupRepository.save(group);
         return ResponseEntity.created(new URI("/api/group/" + result.getId())).body(result);
     }
+
+    @PutMapping("/group")
+    ResponseEntity<Group> updateGroup(@Valid @RequestBody Group group) {
+        logger.info("Request to update group: " + group);
+        Group result = groupRepository.save(group);
+        return ResponseEntity.ok().body(result);
+    }
 }
