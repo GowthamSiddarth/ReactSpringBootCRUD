@@ -14,4 +14,17 @@ class GroupList extends Component {
             .then(response => response.json())
             .then(data => this.setState({groups: data, isLoading: false}));        
     }
+
+    async remove(id) {
+        await fetch(`/api/group/${id}`, {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            let remainingGroups = [...this.state.groups].filter(group => group.id != id);
+            this.setState({groups: remainingGroups});
+        });
+    }
 }
