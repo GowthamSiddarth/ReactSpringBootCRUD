@@ -5,14 +5,14 @@ import { Link } from 'react-router-dom';
 class GroupList extends Component {
     constructor(props) {
         super(props);
-        this.state = {groups: [], isLoading: true};        
+        this.state = { groups: [], isLoading: true };
     }
 
     componentDidMount() {
-        this.setState({isLoading: true});
+        this.setState({ isLoading: true });
         fetch('/api/groups')
             .then(response => response.json())
-            .then(data => this.setState({groups: data, isLoading: false}));        
+            .then(data => this.setState({ groups: data, isLoading: false }));
     }
 
     async remove(id) {
@@ -24,7 +24,7 @@ class GroupList extends Component {
             }
         }).then(() => {
             let remainingGroups = [...this.state.groups].filter(group => group.id != id);
-            this.setState({groups: remainingGroups});
+            this.setState({ groups: remainingGroups });
         });
     }
 
@@ -38,21 +38,21 @@ class GroupList extends Component {
         const groupList = groups.map(group => {
             const address = `${group.address || ''} ${group.city || ''} ${group.state || ''}`;
             return <tr key={group.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{group.name}</td>
+                <td style={{ whiteSpace: 'nowrap' }}>{group.name}</td>
                 <td>{address}</td>
                 <td>
                     {
                         group.events.map(event => {
                             return <div key={event.id}>
-                                    {
-                                        new Intl.DateTimeFormat('en-US', {
-                                            year: 'numeric',
-                                            month: 'long',
-                                            day: '2-digit'
-                                        }).format(new Date(event.date))
-                                    } : {event.title}
-                                </div>
-                        })                
+                                {
+                                    new Intl.DateTimeFormat('en-US', {
+                                        year: 'numeric',
+                                        month: 'long',
+                                        day: '2-digit'
+                                    }).format(new Date(event.date))
+                                } : {event.title}
+                            </div>
+                        })
                     }
                 </td>
                 <td>
@@ -60,8 +60,34 @@ class GroupList extends Component {
                         <Button size="sm" color="primary" tag={Link} to={"/groups/" + group.id}>Edit</Button>
                         <Button size="sm" color="danger" onClick={() => this.remove(group.id)}>Delete</Button>
                     </ButtonGroup>
-                </td>                    
+                </td>
             </tr>
         });
+
+        return (
+            <div>
+                <Container fluid>
+                    <div className="float-right">
+                        <Button color="success" tag={Link} to="/groups/new">Add Group</Button>
+                    </div>
+                    <h3>My JUG Tour</h3>
+                    <Table className="mt-4">
+                        <thead>
+                            <tr>
+                                <th width="20%">Name</th>
+                                <th width="20%">Location</th>
+                                <th>Events</th>
+                                <th width="10%">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {groupList}
+                        </tbody>
+                    </Table>
+                </Container>
+            </div>
+        );
     }
 }
+
+export default GroupList;
