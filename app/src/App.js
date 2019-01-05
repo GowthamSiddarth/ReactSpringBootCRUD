@@ -9,6 +9,12 @@ class App extends Component {
     groups: []
   };
 
+  async componentDidMount() {
+    const response = await fetch('/api/groups');
+    const body = await response.json();
+    this.setState({groups: body, isLoading: false});
+  }
+
   render() {
     return (
       <div className="App">
