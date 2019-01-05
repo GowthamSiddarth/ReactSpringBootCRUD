@@ -7,4 +7,11 @@ class GroupList extends Component {
         super(props);
         this.state = {groups: [], isLoading: true};        
     }
+
+    componentDidMount() {
+        this.setState({isLoading: true});
+        fetch('/api/groups')
+            .then(response => response.json())
+            .then(data => this.setState({groups: data, isLoading: false}));        
+    }
 }
