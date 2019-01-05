@@ -27,4 +27,41 @@ class GroupList extends Component {
             this.setState({groups: remainingGroups});
         });
     }
+
+    render() {
+        const { groups, isLoading } = this.state;
+
+        if (isLoading) {
+            return <p>Loading...</p>;
+        }
+
+        const groupList = groups.map(group => {
+            const address = `${group.address || ''} ${group.city || ''} ${group.state || ''}`;
+            return <tr key={group.id}>
+                <td style={{whiteSpace: 'nowrap'}}>{group.name}</td>
+                <td>{address}</td>
+                <td>
+                    {
+                        group.events.map(event => {
+                            return <div key={event.id}>
+                                    {
+                                        new Intl.DateTimeFormat('en-US', {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: '2-digit'
+                                        }).format(new Date(event.date))
+                                    } : {event.title}
+                                </div>
+                        })                
+                    }
+                </td>
+                <td>
+                    <ButtonGroup>
+                        <Button size="sm" color="primary" tag={Link} to={"/groups/" + group.id}>Edit</Button>
+                        <Button size="sm" color="danger" onClick={() => this.remove(group.id)}>Delete</Button>
+                    </ButtonGroup>
+                </td>                    
+            </tr>
+        });
+    }
 }
