@@ -6,6 +6,7 @@ class GroupList extends Component {
     constructor(props) {
         super(props);
         this.state = { groups: [], isLoading: true };
+        this.remove = this.remove.bind(this);
     }
 
     componentDidMount() {
