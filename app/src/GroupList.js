@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from "reactstrap";
 import { Link } from 'react-router-dom';
-import { AppNavBar } from "./AppNavBar";
+import AppNavBar from "./AppNavBar";
 
 class GroupList extends Component {
     constructor(props) {
@@ -25,7 +25,7 @@ class GroupList extends Component {
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            let remainingGroups = [...this.state.groups].filter(group => group.id != id);
+            let remainingGroups = [...this.state.groups].filter(group => group.id !== id);
             this.setState({ groups: remainingGroups });
         });
     }
