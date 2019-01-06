@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
-import AppNavbar from './AppNavbar';
+import AppNavBar from './AppNavBar';
 
 class GroupEdit extends Component {
 
@@ -53,7 +53,7 @@ class GroupEdit extends Component {
         const title = <h2>{item.id ? 'Edit Group' : 'Add Group'}</h2>;
 
         return <div>
-            <AppNavbar />
+            <AppNavBar />
             <Container>
                 {title}
                 <Form onSubmit={this.handleSubmit}>
