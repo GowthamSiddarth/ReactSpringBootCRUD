@@ -17,4 +17,22 @@ export default class AppNavBar extends Component {
             isOpen: !this.state.isOpen
         });
     }
+
+    render() {
+        return <Navbar color="dark" dark expand="md">
+            <NavbarBrand tag={Link} to="/">Home</NavbarBrand>
+            <NavbarToggler onClick={this.toggle} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+                <Nav className="ml-auto" navbar>
+                    <NavItem>
+                        <NavLink
+                            href="https://twitter.com/gothsiddu">@GowthamSiddarth</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <NavLink href="https://github.com/GowthamSiddarth">GitHub</NavLink>
+                    </NavItem>
+                </Nav>
+            </Collapse>
+        </Navbar>;
+    }
 }
