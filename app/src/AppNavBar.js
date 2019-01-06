@@ -8,5 +8,13 @@ export default class AppNavBar extends Component {
         this.state = {
             isOpen: false
         };
+
+        this.toggle = this.toggle.bind(this);
+    }
+
+    toggle() {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
     }
 }
