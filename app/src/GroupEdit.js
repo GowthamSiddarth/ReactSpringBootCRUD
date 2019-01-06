@@ -21,6 +21,7 @@ class GroupEdit extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange(event) {
@@ -30,5 +31,20 @@ class GroupEdit extends Component {
         let item = {...this.state.item};
         item[name] = value;
         this.setState({item});
-      }
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+        const {item} = this.state;
+    
+        await fetch('/api/group', {
+          method: (item.id) ? 'PUT' : 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(item),
+        });
+        this.props.history.push('/groups');
+    }
 }
