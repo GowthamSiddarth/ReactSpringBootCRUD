@@ -13,4 +13,22 @@ class GroupEdit extends Component {
         country: '',
         postalCode: ''
     };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          item: this.emptyItem
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+        let item = {...this.state.item};
+        item[name] = value;
+        this.setState({item});
+      }
 }
